@@ -51,7 +51,7 @@ class Genetics:
             new_population.append(self.select_entity(population))
         return new_population
 
-    def mutate(self, population, mutationAmount: int, mutationRate: float, mutationValue: float):
+    def mutate(self, population: [], mutationAmount: int, mutationRate: float, mutationValue: float):
         for entity in population:
             for i in range(mutationAmount):
                 if r.random() <= mutationRate:
@@ -59,3 +59,14 @@ class Genetics:
                         entity.genes[r.randrange(0, len(entity.genes))] += mutationValue
                     else:
                         entity.genes[r.randrange(0, len(entity.genes))] -= mutationValue
+
+    def crossover(self, population: [], count: int) -> []:
+        new_population = []
+        for i in range(count):
+            parent1 = self.select_entity(population)
+            parent2 = self.select_entity(population)
+            for j in range(len(parent1.genes)):
+                if r.random() > 0.5:
+                    parent1.genes[j] = parent2.genes[j]
+            new_population.append(parent1)
+        return new_population

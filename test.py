@@ -10,3 +10,4 @@ for entity in population:
 g.set_pick_probabilities(population)
 population = g.select_population(population, len(population))
 g.mutate(population, 2, 0.5, 1)
+population = g.crossover(population, len(population))
