@@ -1,5 +1,6 @@
 import random as r
 import math
+import copy
 
 
 class Entity:
@@ -42,10 +43,19 @@ class Genetics:
             index += 1
 
         index -= 1
-        return population[index]
+        return copy.deepcopy(population[index])
 
     def select_population(self, population: [], count: int) -> []:
         new_population = []
         for i in range(count):
             new_population.append(self.select_entity(population))
         return new_population
+
+    def mutate(self, population, mutationAmount: int, mutationRate: float, mutationValue: float):
+        for entity in population:
+            for i in range(mutationAmount):
+                if r.random() <= mutationRate:
+                    if r.random() > 0.5:
+                        entity.genes[r.randrange(0, len(entity.genes))] += mutationValue
+                    else:
+                        entity.genes[r.randrange(0, len(entity.genes))] -= mutationValue
